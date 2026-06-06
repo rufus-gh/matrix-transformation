@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matrix Transformation Visualiser</title>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-        canvas {
-            display: block;
-            width: 100vw;
-            height: 100vh;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <canvas id="canvas" aria-label="Matrix transformation canvas"></canvas>
     <script src="main.js"></script>
+
+    <div class="overlay">
+        <div class="overlay-label">Enter your transformation matrix</div>
+        <div class="matrix-container">
+            <div class="bracket">[</div>
+            <div class="matrix-grid">
+                <input type="number" class="matrix-input" placeholder="a">
+                <input type="number" class="matrix-input" placeholder="b">
+                <input type="number" class="matrix-input" placeholder="c">
+                <input type="number" class="matrix-input" placeholder="d">
+            </div>
+            <div class="bracket">]</div>
+        </div>
+    </div>
 </body>
 </html>
