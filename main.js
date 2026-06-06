@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-let overallMatrix = [[1,0,],[0,1]];
+let overallMatrix = [[1,0],[0,1]];
 matrix = overallMatrix;
 
 const inputs = document.querySelectorAll(".matrix-input");
@@ -22,7 +22,13 @@ function readMatrixFromInputs() {
   draw();
 }
 
+function reset() {
+  overallMatrix = [[1,0],[0,1]];
+  draw();
+}
+
 document.getElementById("applyBtn").addEventListener("click", readMatrixFromInputs);
+document.getElementById("reset").addEventListener("click", reset);
 
 function resize() {
   const dpr = window.devicePixelRatio || 1;
