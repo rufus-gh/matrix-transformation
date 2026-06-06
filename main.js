@@ -3,33 +3,47 @@ const ctx = canvas.getContext('2d');
 
 function resize() {
   const dpr = window.devicePixelRatio || 1;
-  const cssWidth = window.innerWidth;
-  const cssHeight = window.innerHeight;
-
-  canvas.style.width = cssWidth + 'px';
-  canvas.style.height = cssHeight + 'px';
-
-  canvas.width = Math.round(cssWidth * dpr);
-  canvas.height = Math.round(cssHeight * dpr);
-
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  draw(cssWidth, cssHeight);
+  draw();
 }
 
-function draw(w, h) {
-  ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = '#0b1220';
-  ctx.fillRect(0, 0, w, h);
+function drawLine(x1, y1, x2, y2, thickness=3, color="#b0b0b0ff") {
+  ctx.beginPath();
+  ctx.moveTo(x1,y1);
+  ctx.lineTo(x2,y2);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = thickness;
+  ctx.stroke();
+}
 
-  ctx.fillStyle = '#9bd';
-  ctx.font = '20px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-  ctx.fillText('Matrix Transformation Visualiser', 16, 36);
+function drawGrid() {
+    // vertical lines
+    for (let x=Math.trunc(canvas.width / 4);x<canvas.width;x+=Math.trunc(canvas.width / 70)) {
+      drawLine(x,0,x,canvas.height);
+    }
+    for (let y=Math.trunc(canvas.height / 4);y<canvas.height;y+=Math.trunc(canvas.width / 70)) {
+      drawLine(0,y,canvas.width,y);
+    }
+
+    for (let x=Math.trunc(canvas.width / 4);x>0;x-=Math.trunc(canvas.width / 70)) {
+      drawLine(x,0,x,canvas.height);
+    }
+    for (let y=Math.trunc(canvas.height / 4);y>0;y-=Math.trunc(canvas.width / 70)) {
+      drawLine(0,y,canvas.width,y);
+    }
+
+    drawLine(0, Math.trunc(canvas.height / 4), canvas.width, Math.trunc(canvas.height / 4), 5, "white");
+    drawLine(Math.trunc(canvas.width / 4), 0, Math.trunc(canvas.width / 4), canvas.height, 5, "white");
+}
+
+function draw() {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  ctx.fillStyle = '#0b1220';
+  ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+  drawGrid();
 }
 
 window.addEventListener('resize', resize);
-window.addEventListener('orientationchange', resize);
-window.addEventListener('DOMContentLoaded', resize);
-
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  resize();
-}
+resize();
