@@ -63,3 +63,20 @@ canvas {
     border-color: #0066cc;
     box-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
 }
+
+.fade {
+    width: 100vw;
+    height: 200px;
+    position: fixed;
+    background: linear-gradient(to bottom, black 20%, transparent 100%);
+    top: 0px;
+    z-index: 0;
+}
+
+.title {
+    color: #9bd;
+    font-size: 30px;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+}
