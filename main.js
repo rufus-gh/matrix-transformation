@@ -19,8 +19,17 @@ function drawLine(x1, y1, x2, y2, thickness=3, color="#b0b0b0ff") {
 }
 
 function canvasCoords(x, y) {
-  canvasX = Math.trunc(canvas.width / 4) + x;
-  canvasY = Math.trunc(canvas.height / 4) - y;
+
+  let array = [x, y];
+
+  let rotate = [[0.866,-0.5,],[0.5,0.8660]]
+
+  x = math.multiply(rotate, array)[0];
+  y = math.multiply(rotate, array)[1];
+
+  canvasX = Math.trunc(canvas.width / 4) + x*Math.trunc(canvas.width / 70);
+  canvasY = Math.trunc(canvas.height / 4) - y*Math.trunc(canvas.width / 70);
+    
   return [canvasX, canvasY]
 }
 
@@ -28,7 +37,7 @@ function drawVector(x, y) {
   let [x1, y1] = canvasCoords(0,0);
   let [x2, y2] = canvasCoords(x,y);
 
-  drawLine(x1, y1, x2, y2, 3, "red");
+  drawLine(x1, y1, x2, y2, 5, "red");
   ctx.beginPath();
   ctx.arc(x2, y2, 5, 0, 2 * Math.PI);
   ctx.fillStyle = "red";
@@ -52,6 +61,13 @@ function drawGrid() {
       drawLine(0,y,canvas.width,y);
     }
 
+    ctx.beginPath();
+    ctx.arc(canvasCoords(0,0)[0], canvasCoords(0,0)[1], 5, 0, 2 * Math.PI);
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.stroke();
+
     drawLine(0, Math.trunc(canvas.height / 4), canvas.width, Math.trunc(canvas.height / 4), 5, "white");
     drawLine(Math.trunc(canvas.width / 4), 0, Math.trunc(canvas.width / 4), canvas.height, 5, "white");
 }
@@ -61,7 +77,8 @@ function draw() {
   ctx.fillStyle = '#0b1220';
   ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
   drawGrid();
-  drawVector(100, 200);
+  //drawVector(2, 0);
+  drawVector(0, 2);
 }
 
 window.addEventListener('resize', resize);
