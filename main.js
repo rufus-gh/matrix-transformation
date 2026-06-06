@@ -1,6 +1,29 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+let overallMatrix = [[1,0,],[0,1]];
+matrix = overallMatrix;
+
+const inputs = document.querySelectorAll(".matrix-input");
+
+function readMatrixFromInputs() {
+  const a = parseFloat(inputs[0].value) || 0;
+  const b = parseFloat(inputs[1].value) || 0;
+  const c = parseFloat(inputs[2].value) || 0;
+  const d = parseFloat(inputs[3].value) || 0;
+
+  matrix = [
+    [a, b],
+    [c, d]
+  ];
+
+  overallMatrix = math.multiply(matrix, overallMatrix);
+
+  draw();
+}
+
+document.getElementById("applyBtn").addEventListener("click", readMatrixFromInputs);
+
 function resize() {
   const dpr = window.devicePixelRatio || 1;
   canvas.width = window.innerWidth * dpr;
@@ -22,10 +45,8 @@ function canvasCoords(x, y) {
 
   let array = [x, y];
 
-  let rotate = [[0.866,-0.5,],[0.5,0.8660]]
-
-  x = math.multiply(rotate, array)[0];
-  y = math.multiply(rotate, array)[1];
+  x = math.multiply(overallMatrix, array)[0];
+  y = math.multiply(overallMatrix, array)[1];
 
   canvasX = Math.trunc(canvas.width / 4) + x*Math.trunc(canvas.width / 70);
   canvasY = Math.trunc(canvas.height / 4) - y*Math.trunc(canvas.width / 70);
