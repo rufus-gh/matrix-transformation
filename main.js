@@ -1,5 +1,6 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const fpsDisplay = document.getElementById('fps');
 
 let overallMatrix = [[1,0],[0,1]];
 matrix = overallMatrix;
@@ -17,9 +18,24 @@ function readMatrixFromInputs() {
     [c, d]
   ];
 
-  overallMatrix = math.multiply(matrix, overallMatrix);
+  startMatrix = overallMatrix;
+  goalMatrix = math.multiply(matrix, overallMatrix);
 
-  draw();
+  smooth(0);
+}
+
+function smooth(t) {
+  overallMatrix = math.add(math.multiply(startMatrix, 1-t), math.multiply(goalMatrix, t));
+
+  t += 0.1
+
+  document.querySelector('#applyBtn').disabled = true;
+
+  if (t <= 1) {
+    setTimeout(()=> {smooth(t)}, 20);
+  } else {
+    document.querySelector('#applyBtn').disabled = false;
+  }
 }
 
 function reset() {
@@ -74,7 +90,7 @@ function drawVector(x, y) {
 
 function drawGrid() {
     const gridSpacing = Math.trunc(canvas.width / 70);
-    const gridRange = 30;
+    const gridRange = 100;
     
     for (let x = -gridRange; x <= gridRange; x++) {
       let [x1, y1] = canvasCoords(x, -gridRange);
@@ -113,5 +129,23 @@ function draw() {
   drawVector(0, 2);
 }
 
+let lastFpsSample = performance.now();
+let frameCount = 0;
+
+function render(now) {
+  frameCount += 1;
+
+  if (now - lastFpsSample >= 500) {
+    const fps = Math.round((frameCount * 1000) / (now - lastFpsSample));
+    fpsDisplay.textContent = `FPS: ${fps}`;
+    frameCount = 0;
+    lastFpsSample = now;
+  }
+
+  draw();
+  requestAnimationFrame(render);
+}
+
 window.addEventListener('resize', resize);
 resize();
+requestAnimationFrame(render);
