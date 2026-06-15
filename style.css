@@ -12,22 +12,24 @@ canvas {
 
 .overlay {
     position: fixed;
-    top: 20px;
+    top: 80px;
     right: 20px;
     z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    background: white;
+    background: rgba(15, 23, 42, 0.85);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    backdrop-filter: blur(4px);
 }
 
 .overlay-label {
     font-size: 18px;
-    color: #333;
+    color: #f8fafc;
 }
 
 .matrix-container {
@@ -35,11 +37,12 @@ canvas {
     align-items: center;
     gap: 15px;
     font-size: 40px;
-    color: #333;
+    color: #f8fafc;
 }
 
 .bracket {
     transform: scaleY(3);
+    font-weight: 300;
 }
 
 .matrix-grid {
@@ -53,32 +56,52 @@ canvas {
     height: 40px;
     font-size: 16px;
     padding: 8px;
-    border: 2px solid #333;
+    background: rgba(30, 41, 59, 0.8);
+    color: #f8fafc;
+    border: 1px solid rgba(59, 130, 246, 0.4);
     border-radius: 4px;
     text-align: center;
 }
 
 .matrix-input:focus {
     outline: none;
-    border-color: #0066cc;
-    box-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
+    border-color: #60a5fa;
+    background: rgba(30, 41, 59, 1);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
 }
 
-.fade {
+.topbar {
     width: 100vw;
-    height: 200px;
+    height: 65px;
     position: fixed;
-    background: linear-gradient(to bottom, black 20%, transparent 100%);
+    /*background: linear-gradient(to bottom, black 20%, transparent 100%);*/
+    background: rgba(15, 23, 42, 0.9);
     top: 0px;
     z-index: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-left: 20px;
+    backdrop-filter: blur(4px);
 }
 
 .title {
-    color: #9bd;
+    color: #f8fafc;
     font-size: 30px;
-    position: absolute;
-    top: 15px;
-    left: 20px;
+}
+
+.logo {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    width: 50px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: #3b82f6;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    font-size: 20pt;
 }
 
 .fps-counter {
@@ -86,13 +109,59 @@ canvas {
     left: 20px;
     bottom: 16px;
     z-index: 20;
-    color: #e6f0ff;
-    background: rgba(11, 18, 32, 0.75);
-    border: 1px solid rgba(155, 221, 255, 0.35);
+    color: #f8fafc;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(59, 130, 246, 0.4);
     border-radius: 999px;
     padding: 8px 12px;
     font-size: 14px;
     letter-spacing: 0.4px;
     backdrop-filter: blur(6px);
     pointer-events: none;
+}
+
+.overlay > div:last-child {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.overlay button {
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+#applyBtn {
+    background: #3b82f6;
+    color: #ffffff;
+    flex: 1;
+}
+
+#applyBtn:hover {
+    background: #2563eb;
+}
+
+#applyBtn:active {
+    background: #1d4ed8;
+}
+
+#reset {
+    background: rgba(30, 41, 59, 0.5);
+    color: #cbd5e1;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+#reset:hover {
+    background: rgba(45, 59, 82, 0.6);
+    color: #e2e8f0;
+}
+
+#reset:active {
+    background: rgba(148, 163, 184, 0.25);
 }
