@@ -165,3 +165,7 @@ canvas {
 #reset:active {
     background: rgba(148, 163, 184, 0.25);
 }
+
+.angle {
+    width: 93%;
+}

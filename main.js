@@ -7,6 +7,16 @@ matrix = overallMatrix;
 
 const inputs = document.querySelectorAll(".matrix-input");
 
+function updateMatrixForAngle() {
+  let angle = document.querySelector(".angle").value * Math.PI / 180;
+  inputs[0].value = Math.cos(angle);
+  inputs[1].value = Math.sin(angle);
+  inputs[2].value = -1 * Math.sin(angle);
+  inputs[3].value = Math.cos(angle);
+}
+
+document.getElementById("angle").addEventListener("change", updateMatrixForAngle);
+
 function readMatrixFromInputs() {
   const a = parseFloat(inputs[0].value) || 0;
   const b = parseFloat(inputs[1].value) || 0;
